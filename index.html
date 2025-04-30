@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classroom Feedback Survey</title>
+  <style>
+    body {
+      font-family: Georgia, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #eef2f3;
+    }
+
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      display: grid;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+    }
+
+    .radio-group label {
+      font-weight: normal;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      background-color: brown;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0066b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      table {
+        font-size: 14px;
+      }
+    }
+
+    .filter-section {
+      margin-top: 40px;
+      padding: 20px;
+      background: #f8f9fb;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+    }
+
+    .filter-section h3 {
+      margin-top: 0;
+      color: #004080;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .filter-item {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .landing-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Classroom Feedback Survey</h1>
+  </header>
+
+  <div class="container">
+    
+    <div id="landing">
+      <h2>Welcome to School Classroom Survey!</h2>
+      <div class="landing-buttons">
+        <button onclick="startSurvey()">Start Survey</button>
+        <button onclick="openAdmin()">Admin</button>
+      </div>
+    </div>
+
+    <div id="survey-section" class="hidden">
+      <h2>Your Feedback is Valuable!</h2>
+      <form id="survey-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name">
+
+        <label for="grade">Grade & Section:</label>
+        <select id="grade" name="grade">
+          <option value="">-- Select Grade & Section --</option>
+          <option value="Grade 7-A">Grade 7-A</option>
+          <option value="Grade 8-B">Grade 8-B</option>
+        </select>
+
+        <label for="subject">Subject:</label>
+        <select id="subject" name="subject">
+          <option value="">-- Select Subject --</option>
+          <option value="Math">Math</option>
+          <option value="Science">Science</option>
+          <option value="English">English</option>
+        </select>
+
+        <label>Teacher Rating (1–5 Stars):</label>
+        <div class="radio-group">
+          <label><input type="radio" name="rating" value="1"> ⭐</label>
+          <label><input type="radio" name="rating" value="2"> ⭐⭐</label>
+          <label><input type="radio" name="rating" value="3"> ⭐⭐⭐</label>
+          <label><input type="radio" name="rating" value="4"> ⭐⭐⭐⭐</label>
+          <label><input type="radio" name="rating" value="5"> ⭐⭐⭐⭐⭐</label>
+        </div>
+
+        <label for="favorite">Favorite Lesson:</label>
+        <input type="text" id="favorite" name="favorite" placeholder="Which lesson did you enjoy most?">
+
+        <label for="suggestions">Suggestions for Improvement:</label>
+        <textarea id="suggestions" name="suggestions" rows="4" placeholder="Your ideas to improve the class…"></textarea>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="anonymous" name="anonymous">
+          <label for="anonymous">Submit anonymously</label>
+        </div>
+
+        <button type="submit">Submit Feedback</button>
+      </form>
+    </div>
+
+    <div id="admin-section" class="hidden">
+      <h2>Admin Panel</h2>
+
+      <div class="filter-section">
+        <h3>Filter Feedback</h3>
+        <div class="filters">
+          <div class="filter-item">
+            <label for="filter-subject">Subject</label>
+            <select id="filter-subject">
+              <option value="">All Subjects</option>
+              <option value="Math">Math</option>
+              <option value="Science">Science</option>
+              <option value="English">English</option>
+            </select>
+          </div>
+
+          <div class="filter-item">
+            <label for="filter-rating">Teacher Rating</label>
+            <select id="filter-rating">
+              <option value="">All Ratings</option>
+              <option value="1">⭐</option>
+              <option value="2">⭐⭐</option>
+              <option value="3">⭐⭐⭐</option>
+              <option value="4">⭐⭐⭐⭐</option>
+              <option value="5">⭐⭐⭐⭐⭐</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+          <button id="clear-responses" style="background-color: #dc3545;">Clear All Responses</button>
+        </div>
+      </div>
+
+      <table id="results-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Grade & Section</th>
+            <th>Subject</th>
+            <th>Teacher Rating</th>
+            <th>Favorite Lesson</th>
+            <th>Suggestions</th>
+            <th>Anonymous</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('survey-form');
+    const tableBody = document.querySelector('#results-table tbody');
+    const adminPassword = "Ocasla033004";
+
+    function startSurvey() {
+      document.getElementById('landing').classList.add('hidden');
+      document.getElementById('survey-section').classList.remove('hidden');
+    }
+
+    function openAdmin() {
+      const inputPassword = prompt("Enter Admin Password:");
+      if (inputPassword === adminPassword) {
+        document.getElementById('landing').classList.add('hidden');
+        document.getElementById('admin-section').classList.remove('hidden');
+      } else {
+        alert("Incorrect password. Access denied.");
+      }
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value || 'Anonymous';
+      const grade = document.getElementById('grade').value;
+      const subject = document.getElementById('subject').value;
+      const rating = document.querySelector('input[name="rating"]:checked')?.value || 'N/A';
+      const favorite = document.getElementById('favorite').value;
+      const suggestions = document.getElementById('suggestions').value;
+      const anonymous = document.getElementById('anonymous').checked ? 'Yes' : 'No';
+
+      const response = { name, grade, subject, rating, favorite, suggestions, anonymous };
+
+      const savedResponses = JSON.parse(localStorage.getItem('feedbackResponses')) || [];
+      savedResponses.push(response);
+      localStorage.setItem('feedbackResponses', JSON.stringify(savedResponses));
+
+      appendRow(response);
+      alert("Thank you! Your feedback has been submitted.");
+      form.reset();
+    });
+
+    function appendRow(data) {
+      const row = document.createElement('tr');
+      row.setAttribute('data-subject', data.subject);
+      row.setAttribute('data-rating', data.rating);
+      row.innerHTML = `
+        <td>${data.name}</td>
+        <td>${data.grade}</td>
+        <td>${data.subject}</td>
+        <td>${data.rating} ⭐</td>
+        <td>${data.favorite}</td>
+        <td>${data.suggestions}</td>
+        <td>${data.anonymous}</td>
+      `;
+      tableBody.appendChild(row);
+    }
+
+    document.getElementById('filter-subject').addEventListener('change', filterTable);
+    document.getElementById('filter-rating').addEventListener('change', filterTable);
+
+    function filterTable() {
+      const subjectFilter = document.getElementById('filter-subject').value;
+      const ratingFilter = document.getElementById('filter-rating').value;
+      const rows = document.querySelectorAll('#results-table tbody tr');
+
+      rows.forEach(row => {
+        const rowSubject = row.getAttribute('data-subject');
+        const rowRating = row.getAttribute('data-rating');
+        const matchSubject = !subjectFilter || rowSubject === subjectFilter;
+        const matchRating = !ratingFilter || rowRating === ratingFilter;
+        row.style.display = (matchSubject && matchRating) ? '' : 'none';
+      });
+    }
+
+    document.getElementById('clear-responses').addEventListener('click', function () {
+      if (confirm("Are you sure you want to delete all feedback responses?")) {
+        localStorage.removeItem('feedbackResponses');
+        tableBody.innerHTML = '';
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedResponses = JSON.parse(localStorage.getItem('feedbackResponses')) || [];
+      savedResponses.forEach(appendRow);
+    });
+  </script>
+
+</body>
+</html>
